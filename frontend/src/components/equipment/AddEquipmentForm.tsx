@@ -50,7 +50,7 @@ export function AddEquipmentForm() {
     zone: "",
     notes: "",
   });
-  const token = localStorage.getItem("token");
+
   const updateField = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -87,15 +87,6 @@ export function AddEquipmentForm() {
 
   const handleSubmit = async () => {
     try {
-      if (!token) {
-        toast({
-          title: "Not authenticated",
-          description: "Please log in to add equipment.",
-          variant: "destructive",
-        });
-        return;
-      }
-
       const payload = {
         name: formData.name,
         type: formData.type,
@@ -107,7 +98,7 @@ export function AddEquipmentForm() {
         notes: formData.notes,
       };
 
-      await createEquipment(payload, token);
+      await createEquipment(payload);
 
       toast({
         title: "Equipment added!",

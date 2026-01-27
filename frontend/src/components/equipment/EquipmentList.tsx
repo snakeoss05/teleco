@@ -42,13 +42,10 @@ export function EquipmentList() {
   const [filterType, setFilterType] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
 
-  const token = localStorage.getItem("token");
-
   useEffect(() => {
     const loadEquipment = async () => {
       try {
-        if (!token) throw new Error("Not authenticated");
-        const data = await fetchEquipment(token);
+        const data = await fetchEquipment();
         setEquipment(data);
       } catch (err: any) {
         setError(err.message || "Failed to load equipment");
@@ -58,7 +55,7 @@ export function EquipmentList() {
     };
 
     loadEquipment();
-  }, [token]);
+  }, []);
 
   const getStatusVariant = (status: string) => {
     switch (status) {

@@ -65,11 +65,10 @@ export default function EquipmentDetail() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // Or however you store auth
-    if (!id || !token) return;
+    if (!id) return;
 
     setLoading(true);
-    fetchEquipmentById(id, token)
+    fetchEquipmentById(id)
       .then((eq) => setEquipment(eq))
 
       .catch((err) => setError(err.message || "Failed to load equipment"))
@@ -103,9 +102,8 @@ export default function EquipmentDetail() {
   }
 
   const handleDelete = () => {
-    const token = localStorage.getItem("token");
-    if (!id || !token) return;
-    deleteEquipment(id, token)
+    if (!id) return;
+    deleteEquipment(id)
       .then(() => {
         toast.success("Equipment deleted successfully");
         navigate("/equipment");

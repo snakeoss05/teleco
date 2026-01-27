@@ -4,13 +4,13 @@ import Equipment from "../models/equipment.model.js";
 export const createEquipment = async (req, res) => {
   try {
     const { name, type, lat, lng, ports, status, zone, notes } = req.body;
-
+    console.log("Creating equipment with data:", req.body);
     if (!name || !type || !lat || !lng) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
     const equipment = await Equipment.create({
-      name,
+      name: name,
       type,
       status: status || "active",
       zone: zone || "",

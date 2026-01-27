@@ -48,14 +48,11 @@ export function MapView() {
   const [activeStatusFilters, setActiveStatusFilters] = useState<string[]>([]);
   const [showLegend, setShowLegend] = useState(false);
 
-  const token = localStorage.getItem("token"); // if your API needs auth
-
   useEffect(() => {
     const loadEquipment = async () => {
       setLoading(true);
       try {
-        if (!token) throw new Error("Not authenticated");
-        const data: Equipment[] = await fetchEquipment(token);
+        const data: Equipment[] = await fetchEquipment();
 
         // Map location.coordinates to lat/lng if lat/lng are 0
         const mappedData = data.map((eq) => {
@@ -76,7 +73,7 @@ export function MapView() {
     };
 
     loadEquipment();
-  }, [token]);
+  }, []);
 
   const toggleTypeFilter = (type: EquipmentType) => {
     setActiveTypeFilters((prev) =>

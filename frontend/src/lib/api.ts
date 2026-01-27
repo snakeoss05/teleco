@@ -1,12 +1,11 @@
 export const API_URL =
   import.meta.env.VITE_API_URL || "https://teleco-production.up.railway.app";
 
-export const createEquipment = async (data: any, token: string) => {
+export const createEquipment = async (data: any) => {
   const res = await fetch(`${API_URL}/api/equipment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });
@@ -18,12 +17,12 @@ export const createEquipment = async (data: any, token: string) => {
   return result;
 };
 
-export const deleteEquipment = async (id: string, token: string) => {
+export const deleteEquipment = async (id: string) => {
   const res = await fetch(`${API_URL}/api/equipment/${id}`, {
-    method: "DELETE",
     headers: {
-      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
+    method: "DELETE",
   });
   const data = await res.json();
   if (!res.ok) {
@@ -32,12 +31,8 @@ export const deleteEquipment = async (id: string, token: string) => {
   return data;
 };
 
-export const fetchEquipment = async (token: string) => {
-  const res = await fetch(`${API_URL}/api/equipment`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const fetchEquipment = async () => {
+  const res = await fetch(`${API_URL}/api/equipment`);
 
   const data = await res.json();
   if (!res.ok) {
@@ -45,12 +40,8 @@ export const fetchEquipment = async (token: string) => {
   }
   return data.equipment;
 };
-export const fetchEquipmentById = async (id: string, token: string) => {
-  const res = await fetch(`${API_URL}/api/equipment/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const fetchEquipmentById = async (id: string) => {
+  const res = await fetch(`${API_URL}/api/equipment/${id}`);
 
   const data = await res.json();
   if (!res.ok) {

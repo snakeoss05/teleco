@@ -51,7 +51,6 @@ export default function Register() {
       }
 
       // Save JWT token for auto-login
-      localStorage.setItem("token", data.token);
 
       toast({
         title: "Account created!",

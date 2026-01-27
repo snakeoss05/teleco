@@ -36,8 +36,8 @@ export default function Login() {
         return;
       }
 
-      // Save JWT token in localStorage
-      localStorage.setItem("token", data.token);
+
+
 
       toast({
         title: "Welcome back!",
