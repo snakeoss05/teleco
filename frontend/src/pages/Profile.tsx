@@ -1,5 +1,13 @@
 import { AppLayout } from "@/components/layout/AppLayout";
-import { User, Mail, Building, MapPin, Bell, Shield, LogOut } from "lucide-react";
+import {
+  User,
+  Mail,
+  Building,
+  MapPin,
+  Bell,
+  Shield,
+  LogOut,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -21,7 +29,7 @@ export default function Profile() {
           <div className="h-24 w-24 rounded-full bg-accent/20 flex items-center justify-center mb-4">
             <User className="h-12 w-12 text-accent" />
           </div>
-          <h1 className="text-2xl font-bold">John Doe</h1>
+          <h1 className="text-2xl font-bold">Noussaier Bibani</h1>
           <p className="text-muted-foreground">Field Technician</p>
         </div>
 
@@ -35,21 +43,21 @@ export default function Profile() {
               <Mail className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="text-sm text-muted-foreground">Email</p>
-                <p className="font-medium">john.doe@telecom.com</p>
+                <p className="font-medium">Noussaier.bibani@telecom.com</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Building className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="text-sm text-muted-foreground">Company</p>
-                <p className="font-medium">Telecom Solutions Inc.</p>
+                <p className="font-medium">Tunisie Telecom Solutions.</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <MapPin className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="text-sm text-muted-foreground">Assigned Zone</p>
-                <p className="font-medium">North District</p>
+                <p className="font-medium">Lac</p>
               </div>
             </div>
           </CardContent>
@@ -66,7 +74,9 @@ export default function Profile() {
                 <Bell className="h-5 w-5 text-muted-foreground" />
                 <div>
                   <Label htmlFor="notifications">Push Notifications</Label>
-                  <p className="text-sm text-muted-foreground">Receive alerts for equipment status changes</p>
+                  <p className="text-sm text-muted-foreground">
+                    Receive alerts for equipment status changes
+                  </p>
                 </div>
               </div>
               <Switch id="notifications" defaultChecked />
@@ -76,7 +86,9 @@ export default function Profile() {
                 <MapPin className="h-5 w-5 text-muted-foreground" />
                 <div>
                   <Label htmlFor="location">Location Services</Label>
-                  <p className="text-sm text-muted-foreground">Auto-fill GPS when adding equipment</p>
+                  <p className="text-sm text-muted-foreground">
+                    Auto-fill GPS when adding equipment
+                  </p>
                 </div>
               </div>
               <Switch id="location" defaultChecked />
@@ -86,7 +98,9 @@ export default function Profile() {
                 <Shield className="h-5 w-5 text-muted-foreground" />
                 <div>
                   <Label htmlFor="biometric">Biometric Login</Label>
-                  <p className="text-sm text-muted-foreground">Use fingerprint or face ID</p>
+                  <p className="text-sm text-muted-foreground">
+                    Use fingerprint or face ID
+                  </p>
                 </div>
               </div>
               <Switch id="biometric" />
@@ -95,11 +109,10 @@ export default function Profile() {
         </Card>
 
         {/* Logout */}
-        <Button 
-          variant="destructive" 
+        <Button
+          variant="destructive"
           className="w-full gap-2"
-          onClick={handleLogout}
-        >
+          onClick={handleLogout}>
           <LogOut size={18} />
           Sign Out
         </Button>
