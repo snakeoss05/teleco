@@ -1,6 +1,5 @@
-export const API_URL =
-  import.meta.env.VITE_API_URL || "https://teleco-production.up.railway.app";
-
+export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+//https:teleco-production.up.railway.app
 export const createEquipment = async (data: any) => {
   const res = await fetch(`${API_URL}/api/equipment`, {
     method: "POST",

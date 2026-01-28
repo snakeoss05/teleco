@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import L from "leaflet";
+import { renderToStaticMarkup } from "react-dom/server";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -11,7 +12,7 @@ import {
 } from "@/components/ui/equipment-icon";
 
 interface Equipment {
-  _id: string; // your DB ID
+  _id: string;
   name: string;
   type: EquipmentType;
   status: string;
@@ -20,19 +21,32 @@ interface Equipment {
   ports?: number;
   location?: {
     type: "Point";
-    coordinates: [number, number]; // [lng, lat]
+    coordinates: [number, number];
   };
-  lat: number; // will be computed from location if 0
-  lng: number; // will be computed from location if 0
+  lat: number;
+  lng: number;
   createdAt?: string;
   updatedAt?: string;
 }
+
 interface LeafletMapProps {
   equipment: Equipment[];
   selectedEquipment: Equipment | null;
   onSelectEquipment: (eq: Equipment | null) => void;
   center: [number, number];
   zoom: number;
+}
+
+function getLeafletIcon(type: EquipmentType) {
+  const iconHtml = renderToStaticMarkup(<EquipmentIcon type={type} />);
+
+  return L.divIcon({
+    html: iconHtml,
+    className: "equipment-marker",
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  });
 }
 
 export function LeafletMap({
@@ -43,7 +57,7 @@ export function LeafletMap({
   zoom,
 }: LeafletMapProps) {
   const mapRef = useRef<L.Map | null>(null);
-  const markersRef = useRef<any>(null); // 👈 FIX: no MarkerClusterGroup type
+  const markersRef = useRef<any>(null);
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -73,10 +87,16 @@ export function LeafletMap({
     });
 
     equipment.forEach((eq) => {
-      const marker = L.marker([eq.lat, eq.lng]);
+      const icon = getLeafletIcon(eq.type);
+
+      const marker = L.marker([eq.lat, eq.lng], { icon });
+
       marker.bindPopup(
-        `<strong>${eq.name}</strong><br/>Type: ${eq.type}<br/>Status: ${eq.status}`,
+        `<strong>${eq.name}</strong><br/>
+         Type: ${eq.type}<br/>
+         Status: ${eq.status}`,
       );
+
       marker.on("click", () => onSelectEquipment(eq));
       clusterGroup.addLayer(marker);
     });
