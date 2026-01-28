@@ -1,6 +1,6 @@
 export const API_URL =
   import.meta.env.VITE_API_URL || "https://teleco-production.up.railway.app";
-
+//https://teleco-production.up.railway.app
 export const createEquipment = async (data: any) => {
   const res = await fetch(`${API_URL}/api/equipment`, {
     method: "POST",
@@ -48,4 +48,18 @@ export const fetchEquipmentById = async (id: string) => {
     throw new Error(data.error || "Failed to fetch equipment");
   }
   return data.equipment;
+};
+export const updateEquipment = async (id: string, data: any) => {
+  const res = await fetch(`${API_URL}/api/equipment/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  const result = await res.json();
+  if (!res.ok) {
+    throw new Error(result.error || "Failed to update equipment");
+  }
+  return result;
 };

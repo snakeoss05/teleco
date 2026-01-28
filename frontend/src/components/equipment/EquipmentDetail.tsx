@@ -14,9 +14,6 @@ import {
   Trash2,
   Navigation,
   MoreVertical,
-  MapPin,
-  Calendar,
-  Info,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -39,6 +36,7 @@ import { toast } from "sonner";
 
 import { fetchEquipmentById, deleteEquipment } from "@/lib/api";
 
+// Define interface based on your backend object
 interface Equipment {
   _id: string;
   name: string;
@@ -56,6 +54,8 @@ interface Equipment {
   updatedAt?: string;
 }
 
+// Fake fetch function - replace with real API call
+
 export default function EquipmentDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -70,6 +70,7 @@ export default function EquipmentDetail() {
     setLoading(true);
     fetchEquipmentById(id)
       .then((eq) => setEquipment(eq))
+
       .catch((err) => setError(err.message || "Failed to load equipment"))
       .finally(() => setLoading(false));
   }, [id]);
@@ -132,11 +133,6 @@ export default function EquipmentDetail() {
     }
   };
 
-  const formatDate = (date?: string) => {
-    if (!date) return "—";
-    return new Date(date).toLocaleString();
-  };
-
   return (
     <AppLayout>
       <div className="flex flex-col min-h-screen bg-background">
@@ -152,13 +148,11 @@ export default function EquipmentDetail() {
               <div className="flex items-center gap-3">
                 <div>
                   <h1 className="font-bold text-lg">{equipment.name}</h1>
-                  <p className="text-sm text-muted-foreground">
-                    {equipment.zone || "No zone"}
-                  </p>
                 </div>
                 <EquipmentIcon type={equipment.type} />
               </div>
             </div>
+            <div></div>
             <div className="flex items-center gap-2">
               <StatusBadge status={getStatusVariant(equipment.status)}>
                 {equipment.status}
@@ -200,7 +194,6 @@ export default function EquipmentDetail() {
 
         {/* Content */}
         <main className="flex-1 container max-w-4xl mx-auto px-4 py-6 space-y-6 pb-24 md:pb-6">
-          {/* Map Preview */}
           {equipment.location && (
             <SimpleMapPreview
               _id={equipment._id}
@@ -209,8 +202,6 @@ export default function EquipmentDetail() {
               lng={equipment.lng}
             />
           )}
-
-          {/* Actions */}
           <div className="flex gap-3">
             <Button onClick={openNavigation} className="flex-1" size="lg">
               <Navigation size={18} className="mr-2" />
@@ -222,92 +213,6 @@ export default function EquipmentDetail() {
                 Edit
               </Link>
             </Button>
-          </div>
-
-          {/* Equipment Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-4 rounded-xl border p-5">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
-                <Info size={18} />
-                General Information
-              </h2>
-
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Name</span>
-                  <span className="font-medium">{equipment.name}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Type</span>
-                  <span className="font-medium">{equipment.type}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Status</span>
-                  <span className="font-medium">{equipment.status}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Zone</span>
-                  <span className="font-medium">{equipment.zone || "—"}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-4 rounded-xl border p-5">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
-                <MapPin size={18} />
-                Location
-              </h2>
-
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Latitude</span>
-                  <span className="font-medium">{equipment.lat}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Longitude</span>
-                  <span className="font-medium">{equipment.lng}</span>
-                </div>
-                {equipment.location && (
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">GeoJSON</span>
-                    <span className="font-medium">
-                      [{equipment.location.coordinates.join(", ")}]
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="space-y-4 rounded-xl border p-5 md:col-span-2">
-              <h2 className="text-lg font-semibold flex items-center gap-2">
-                <Calendar size={18} />
-                Metadata
-              </h2>
-
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Created At</span>
-                  <span className="font-medium">
-                    {formatDate(equipment.createdAt)}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Last Updated</span>
-                  <span className="font-medium">
-                    {formatDate(equipment.updatedAt)}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {equipment.notes && (
-              <div className="space-y-4 rounded-xl border p-5 md:col-span-2">
-                <h2 className="text-lg font-semibold">Notes</h2>
-                <p className="text-sm text-muted-foreground whitespace-pre-line">
-                  {equipment.notes}
-                </p>
-              </div>
-            )}
           </div>
         </main>
 

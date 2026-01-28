@@ -53,7 +53,10 @@ export function EquipmentCard({
         return "info";
     }
   };
-
+  const openNavigation = () => {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${equipment.lat},${equipment.lng}`;
+    window.open(url, "_blank");
+  };
   return (
     <div className="map-overlay p-4">
       {/* Header */}
@@ -99,16 +102,22 @@ export function EquipmentCard({
       {/* Actions */}
       {!compact && (
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="flex-1 gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex-1 gap-2"
+            onClick={openNavigation}>
             <Navigation size={14} />
             Navigate
           </Button>
-          <Button variant="outline" size="sm" className="flex-1 gap-2">
-            <Edit size={14} />
-            Edit
-          </Button>
+          <Link to={`/equipment/${equipment._id}/edit`}>
+            <Button variant="outline" size="sm" className="flex-1 gap-2">
+              <Edit size={14} />
+              Edit
+            </Button>{" "}
+          </Link>
           <Button size="sm" variant="default" asChild className="gap-2">
-            <Link to={`/equipment/${equipment._id}`}>
+            <Link key={equipment._id} to={`/equipment/${equipment._id}`}>
               <ExternalLink size={14} />
               Details
             </Link>

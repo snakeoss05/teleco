@@ -12,6 +12,7 @@ import AddEquipment from "./pages/AddEquipment";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import EquipmentEdit from "./pages/EquipmentEdit";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/register" element={<Register />} />
           <Route path="/equipment" element={<Equipment />} />
           <Route path="/equipment/:id" element={<EquipmentDetail />} />
+          <Route path="/equipment/:id/edit" element={<EquipmentEdit />} />
           <Route path="/add" element={<AddEquipment />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
