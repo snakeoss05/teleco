@@ -17,7 +17,7 @@ export type EquipmentType =
   | "ip-msan"
   | "splitter"
   | "cabinet"
-  | "odf"
+  | "join"
   | "pole"
   | "other";
 
@@ -83,11 +83,11 @@ const equipmentConfig: Record<
     bgColor: "bg-slate-100 dark:bg-slate-900/30",
     label: "Cabinet",
   },
-  odf: {
+  join: {
     icon: Cable,
     color: "text-cyan-600 dark:text-cyan-400",
     bgColor: "bg-cyan-100 dark:bg-cyan-900/30",
-    label: "ODF",
+    label: "Join",
   },
   pole: {
     icon: Antenna,

@@ -40,7 +40,7 @@ const equipmentByType = [
   { name: "MSAN", count: 156 },
   { name: "Splitter", count: 234 },
   { name: "Cabinet", count: 89 },
-  { name: "ODF", count: 124 },
+  { name: "Join", count: 124 },
 ];
 
 const statusDistribution = [

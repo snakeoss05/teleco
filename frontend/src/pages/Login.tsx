@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
 import { API_URL } from "@/lib/api"; // make sure this points to your backend
+import { useAuth } from "@/context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ export default function Login() {
       });
 
       const data = await res.json();
-
+      login(data.token, data.user);
       if (!res.ok) {
         toast({
           title: "Login failed",
@@ -35,9 +37,6 @@ export default function Login() {
         });
         return;
       }
-
-
-
 
       toast({
         title: "Welcome back!",

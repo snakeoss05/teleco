@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 // 🧾 Register
 export const register = async (req, res) => {
-  const { name, email, company, password } = req.body;
+  const { name, email, zone, password } = req.body;
 
   try {
     const userExists = await User.findOne({ email });
@@ -11,7 +11,7 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: "Email already registered" });
     }
 
-    const user = await User.create({ name, email, company, password });
+    const user = await User.create({ name, email, zone, password });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
@@ -23,7 +23,7 @@ export const register = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        company: user.company,
+        zone: user.zone,
       },
     });
   } catch (error) {
@@ -51,7 +51,7 @@ export const login = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
-        company: user.company,
+        zone: user.zone,
       },
     });
   } catch (error) {

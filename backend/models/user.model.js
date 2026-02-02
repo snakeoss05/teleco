@@ -4,11 +4,17 @@ import bcrypt from "bcryptjs";
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true, trim: true },
-    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-    company: { type: String, trim: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    zone: { type: String, trim: true },
     password: { type: String, required: true, minlength: 6 },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // 🔐 Hash password before saving

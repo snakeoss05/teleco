@@ -1,12 +1,14 @@
 export const API_URL =
   import.meta.env.VITE_API_URL || "https://teleco-production.up.railway.app";
 //https://teleco-production.up.railway.app
-export const createEquipment = async (data: any) => {
+export const createEquipment = async (data: any, token: string) => {
   const res = await fetch(`${API_URL}/api/equipment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
+
     body: JSON.stringify(data),
   });
 
@@ -17,10 +19,11 @@ export const createEquipment = async (data: any) => {
   return result;
 };
 
-export const deleteEquipment = async (id: string) => {
+export const deleteEquipment = async (id: string, token: string) => {
   const res = await fetch(`${API_URL}/api/equipment/${id}`, {
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     method: "DELETE",
   });
@@ -49,11 +52,12 @@ export const fetchEquipmentById = async (id: string) => {
   }
   return data.equipment;
 };
-export const updateEquipment = async (id: string, data: any) => {
+export const updateEquipment = async (id: string, data: any, token: string) => {
   const res = await fetch(`${API_URL}/api/equipment/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });

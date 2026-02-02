@@ -13,11 +13,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Profile() {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const handleLogout = () => {
+    logout();
     navigate("/login");
   };
 
@@ -43,7 +46,7 @@ export default function Profile() {
               <Mail className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="text-sm text-muted-foreground">Email</p>
-                <p className="font-medium">Noussaier.bibani@telecom.com</p>
+                <p className="font-medium">{user?.email}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -57,7 +60,7 @@ export default function Profile() {
               <MapPin className="h-5 w-5 text-muted-foreground" />
               <div>
                 <p className="text-sm text-muted-foreground">Assigned Zone</p>
-                <p className="font-medium">Lac</p>
+                <p className="font-medium">{user?.zone}</p>
               </div>
             </div>
           </CardContent>

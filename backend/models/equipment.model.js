@@ -6,7 +6,7 @@ const equipmentSchema = new mongoose.Schema(
     type: {
       type: String,
       required: true,
-      enum: ["fdt", "fdh", "IP_MSAN", "SPLITTER", "cabinet", "odf", "pole"],
+      enum: ["fdt", "fdh", "IP_MSAN", "SPLITTER", "cabinet", "join", "pole"],
     },
     status: { type: String, default: "active" },
     zone: { type: String, default: "" },

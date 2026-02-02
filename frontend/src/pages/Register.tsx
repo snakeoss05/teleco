@@ -23,7 +23,7 @@ export default function Register() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
+    zone: "",
     password: "",
   });
 
@@ -170,7 +170,7 @@ export default function Register() {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="you@company.com"
+                  placeholder="you@zone.com"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -182,16 +182,16 @@ export default function Register() {
             </div>
 
             <div>
-              <Label htmlFor="company">Company Name</Label>
+              <Label htmlFor="zone">Zone Name</Label>
               <div className="relative mt-1.5">
                 <Building className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
-                  id="company"
+                  id="zone"
                   type="text"
                   placeholder="Telecom Inc."
-                  value={formData.company}
+                  value={formData.zone}
                   onChange={(e) =>
-                    setFormData({ ...formData, company: e.target.value })
+                    setFormData({ ...formData, zone: e.target.value })
                   }
                   className="pl-10 h-12"
                 />
