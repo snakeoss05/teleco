@@ -29,6 +29,7 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { createEquipment } from "@/lib/api";
 import { SimpleMapPreview } from "./InlineMapPreview";
+import { useAuth } from "@/context/AuthContext";
 
 const steps = [
   { id: 1, title: "Type", description: "Select equipment type" },
@@ -40,6 +41,7 @@ const steps = [
 export function AddEquipmentForm() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  const { token } = useAuth();
   const [formData, setFormData] = useState({
     type: "" as EquipmentType | "",
     name: "",
@@ -98,7 +100,7 @@ export function AddEquipmentForm() {
         notes: formData.notes,
       };
 
-      await createEquipment(payload);
+      await createEquipment(payload, token);
 
       toast({
         title: "Equipment added!",

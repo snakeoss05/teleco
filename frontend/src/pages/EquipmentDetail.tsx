@@ -36,6 +36,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import { useAuth } from "@/context/AuthContext";
 
 import { fetchEquipmentById, deleteEquipment } from "@/lib/api";
 
@@ -58,6 +59,7 @@ interface Equipment {
 
 export default function EquipmentDetail() {
   const { id } = useParams<{ id: string }>();
+  const { token } = useAuth();
   const navigate = useNavigate();
   const [equipment, setEquipment] = useState<Equipment | null>(null);
   const [loading, setLoading] = useState(true);
@@ -102,7 +104,7 @@ export default function EquipmentDetail() {
 
   const handleDelete = () => {
     if (!id) return;
-    deleteEquipment(id)
+    deleteEquipment(id, token)
       .then(() => {
         toast.success("Equipment deleted successfully");
         navigate("/equipment");

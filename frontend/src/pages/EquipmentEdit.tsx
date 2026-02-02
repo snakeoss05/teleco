@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/select";
 import { ArrowLeft, Save } from "lucide-react";
 import { toast } from "sonner";
-
+import { useAuth } from "@/context/AuthContext";
 import { fetchEquipmentById, updateEquipment } from "@/lib/api";
 import type { EquipmentType } from "@/components/ui/equipment-icon";
 
@@ -29,6 +29,7 @@ interface Equipment {
 }
 
 export default function EquipmentEdit() {
+  const { token } = useAuth();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -57,7 +58,7 @@ export default function EquipmentEdit() {
 
     setSaving(true);
     try {
-      await updateEquipment(id, formData);
+      await updateEquipment(id, formData, token);
       toast.success("Equipment updated successfully");
       navigate(`/equipment/${id}`);
     } catch (err: any) {
